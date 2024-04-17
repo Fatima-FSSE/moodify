@@ -1,0 +1,16 @@
+
+
+.mood-board-div {
+    position: absolute;
+    display: inline-flex;
+    left: 0;
+    top:0;
+    width: 68.5%;
+    color: blue;
+    background-color: white;
+    border: 7px solid #074173;
+    border-radius: 15px;
+    height: 55vh;
+    margin: 0;
+    padding: 0;
+}

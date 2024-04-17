@@ -62,7 +62,8 @@
 
 .forecast-div {
   align-items: center; 
-  background-image: linear-gradient(180deg, #074173 0%, #1679AB 100%);
+  /* background-image: linear-gradient(180deg, #074173 0%, #1679AB 100%); */
+  background-color: #1679AB;
   border-radius: 13px;
   display: inline-flex;
   justify-content: center;
@@ -72,14 +73,12 @@
 
 .temprature-div{
   align-items: center; 
-  background-image: linear-gradient(180deg, #074173 0%, #1679AB 100%);
+  background-color: #1679AB;
   border-radius: 13px;
   display: inline-flex;
   justify-content: center;
   padding: .4% 3% .4% 3%;
   gap: 15%;
-  /* padding-left: 3%;
-  padding-right: 3%; */
 }
 
 .weather-icon {

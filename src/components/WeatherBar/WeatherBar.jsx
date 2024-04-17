@@ -21,11 +21,11 @@ function WeatherBar() {
 
   useEffect(() => {
     console.log("inside the useEffect");
-    getWeatherData(inputValue);
+    //getWeatherData(inputValue);
   }, []);
 
   async function getWeatherData(input) {
-    let api_key = "***REMOVED***";
+    
     let url = `https://api.weatherbit.io/v2.0/current?city=${input}&key=${api_key}&include=hourly&units=I`;
     let response = await fetch(url);
     let weatherData = await response.json();
@@ -45,7 +45,7 @@ function WeatherBar() {
   function search() {
     const cityName = document.getElementsByClassName("search-city");
     setInputValue(cityName[0].value);
-    getWeatherData(cityName[0].value);
+    //getWeatherData(cityName[0].value);
   }
 
   return (
