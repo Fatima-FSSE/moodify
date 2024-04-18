@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./WeatherBar.css";
-import searchImg from "../Assets/WeatherBarAssets/search.png";
-import humidityImg from "../Assets/WeatherBarAssets/humidity.png";
-import windyImg from "../Assets/WeatherBarAssets/windy.png";
-import uvIndexImg from "../Assets/WeatherBarAssets/uv-index.png";
-import precipitationImg from "../Assets/WeatherBarAssets/precipitation.png";
-import visibilityImg from "../Assets/WeatherBarAssets/visibility.png";
-import tempratureImg from "../Assets/WeatherBarAssets/temprature.png";
-import logo from "../Assets/moodify.png";
+//import searchImg from "images/WeatherBarAssets/search.png";
+// import humidityImg from "images/WeatherBarAssets/humidity.png";
+// import windyImg from "images/WeatherBarAssets/windy.png";
+// import uvIndexImg from "images/WeatherBarAssets/uv-index.png";
+// import precipitationImg from "images/WeatherBarAssets/precipitation.png";
+// import visibilityImg from "images/WeatherBarAssets/visibility.png";
+// import tempratureImg from "images/WeatherBarAssets/temprature.png";
 
 function WeatherBar() {
   const [inputValue, setInputValue] = useState("Sugar Land");
@@ -19,18 +18,28 @@ function WeatherBar() {
   const [uvIndex, setUvIndex] = useState();
   const [visiblity, setVisibility] = useState();
 
+  const path = "images/WeatherBarAssets/";
+  const searchImg = `${path}search.png`; 
+  const humidityImg = `${path}humidity.png`;
+  const windyImg = `${path}windy.png`;
+  const uvIndexImg = `${path}uv-index.png`;
+  const precipitationImg = `${path}precipitation.png`;
+  const visibilityImg = `${path}visibility.png`;
+  const tempratureImg = `${path}temprature.png`;
+
   useEffect(() => {
     console.log("inside the useEffect");
-    //getWeatherData(inputValue);
+    getWeatherData(inputValue);
   }, []);
 
   async function getWeatherData(input) {
-    
-    let url = `https://api.weatherbit.io/v2.0/current?city=${input}&key=${api_key}&include=hourly&units=I`;
+
+    let weather_api_key = process.env.REACT_APP_WEATHER_API;
+    let url = `https://api.weatherbit.io/v2.0/current?city=${input}&key=${weather_api_key}&include=hourly&units=I`;
     let response = await fetch(url);
     let weatherData = await response.json();
 
-    const wIcon = require(`../Assets/WeatherBarAssets/weather-icons/${weatherData.data[0].weather.icon}.png`);
+    const wIcon = `${path}weather-icons/${weatherData.data[0].weather.icon}.png`;
     document.getElementById("icon").src = wIcon;
 
     setTemprature(Math.floor(weatherData.data[0].temp));
@@ -45,14 +54,14 @@ function WeatherBar() {
   function search() {
     const cityName = document.getElementsByClassName("search-city");
     setInputValue(cityName[0].value);
-    //getWeatherData(cityName[0].value);
+    getWeatherData(cityName[0].value);
   }
 
   return (
     <div className="weather-bar-container">
       <div className="container">
         <div>
-          <img className="logo-icon" src={logo} alt="logo" />
+          <img className="logo-icon" src={"moodify.png"} alt="logo" />
         </div>
         <div className="search-bar">
           <input

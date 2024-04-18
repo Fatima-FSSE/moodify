@@ -6,7 +6,7 @@ function TodoList() {
     return (
         <div className='todo-list-div'>
           <div className='header'>
-            Today's Agenda
+            Todo List
           </div>
           
         </div>
