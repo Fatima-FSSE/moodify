@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./WeatherBar.css";
-//import searchImg from "images/WeatherBarAssets/search.png";
-// import humidityImg from "images/WeatherBarAssets/humidity.png";
-// import windyImg from "images/WeatherBarAssets/windy.png";
-// import uvIndexImg from "images/WeatherBarAssets/uv-index.png";
-// import precipitationImg from "images/WeatherBarAssets/precipitation.png";
-// import visibilityImg from "images/WeatherBarAssets/visibility.png";
-// import tempratureImg from "images/WeatherBarAssets/temprature.png";
 
 function WeatherBar() {
   const [inputValue, setInputValue] = useState("Sugar Land");
@@ -27,8 +20,8 @@ function WeatherBar() {
   const visibilityImg = `${path}visibility.png`;
   const tempratureImg = `${path}temprature.png`;
 
+  // eslint-disable-next-line
   useEffect(() => {
-    console.log("inside the useEffect");
     getWeatherData(inputValue);
   }, []);
 
@@ -59,7 +52,7 @@ function WeatherBar() {
 
   return (
     <div className="weather-bar-container">
-      <div className="container">
+      <div className="container weather-bar-div">
         <div>
           <img className="logo-icon" src={"moodify.png"} alt="logo" />
         </div>

@@ -1,0 +1,110 @@
+.notes-container{
+  width: 100%;
+  height: 28vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0.1%;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+} 
+
+.container.notes-div {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  word-break: break-all;
+  color: black;
+  width: 80%;
+}
+
+.bloc-tabs {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabs{
+  padding: 15px;
+  text-align: center;
+  width: 20%;
+  background-color: white;
+  border: 1px solid grey;
+  border-top: none;
+  cursor: pointer;
+  margin: 0 0 0 0;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+}
+
+.tabs:not(:last-child){
+  border-right: 1px solid rgba(0,0,0, 0.274);
+
+
+}
+
+.active-tabs{
+  background-image: linear-gradient(to top right, white, #5DEBD7); 
+  border: none;
+  color: grey;
+  font-weight: bold;
+}
+
+.active-tabs::after{
+  border-top: 5px solid grey;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: initial;
+  animation: new 0.4s;
+
+}
+
+@keyframes new{
+  from{
+    top: 50px;
+    left: 0;
+    right: 0;
+    background: grey;
+  }
+
+  top{
+    top: 50px;
+    left: 0;
+    right: 0;
+    border-top: 5px solid grey;
+  }
+}
+
+.content-tabs{
+  flex-grow: 1;
+  padding: 0;
+}
+
+.content {
+  display: none;
+}
+
+textarea {
+  resize: none;
+  height: 20vh;
+  width: 100%;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  box-sizing: border-box;
+  border: none;
+  padding: 12px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+.active-content {
+  display: block;
+}

@@ -1,21 +1,24 @@
 
-.todo-list-div {
-    position: absolute;
-    right: 0;
-    top:0;
-    width: 30%;
+.todo-list-container {
+    width: 28%;
     color: purple;
     height: 55vh;
     background-color: #C5FF95;
     border: 7px solid #1679AB;
     border-radius: 15px;
-    margin: 0;
+    margin: 0 10px 0 10px;
     padding: 0;
+    float: right;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
 }
 
-.header{
+.header.todo-heading{
     color: #074173;
-    font-weight: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     text-align: center;
     background-color: white;
@@ -23,3 +26,70 @@
     margin: 5px;
     padding: 7px;
 }
+
+.list-items{
+    color: black;
+    background-color: white;
+    width: 90%;
+    margin: auto;
+    font-size: .7rem;
+    font-weight: bold;
+
+}
+
+input[type=checkbox]:checked + p{
+    text-decoration: line-through;
+}
+
+.items {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+
+
+form.item {
+    text-align: center;
+    margin-left: 20px;
+  }
+
+  button.addButton {
+    height: 50px;
+    width: 25px;
+    border-radius: 50%;
+    border-color: transparent;
+    background-color: #1679AB;
+    color: #fff;
+    font-size: 30px;
+    padding-bottom: 6px;
+    border-width: 0;
+  }
+
+  .add-item.input[type="text"] {
+    text-align: center;
+    height: 30px;
+    top: 10px;
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    font-weight: 200;
+    width: 313px;
+  }
+
+.add-item{
+    position: absolute;
+    bottom: 0;
+    align-self: center;
+}  
+
+input[type="text"]{
+    font-size: 1rem;
+    transform: translateY(-6px);
+}
+
+.add-button{
+    /* margin: 0;
+    padding: 0; */
+}
+
