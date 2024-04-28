@@ -1,38 +1,46 @@
-import React, {useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons'
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faSquareMinus } from "@fortawesome/free-regular-svg-icons";
+import { v4 as uuidv4 } from "uuid";
 
-import './TodoList.css';
+import "./TodoList.css";
 
 function TodoList() {
-
-
   const initialList = [
     {
-      id: '1', 
-      todoItem: 'buy lumber and screws',
+      id: "1",
+      todoItem: "buy lumber and screws",
     },
     {
-      id: '2',
-      todoItem: 'Sand the cabinet',
+      id: "2",
+      todoItem: "Sand the cabinet",
     },
   ];
 
   const [list, setList] = useState(initialList);
   const [todoItem, setTodoItem] = useState("");
 
-  function handleChange(event){
+  function handleChange(event) {
     //track new item field state
     setTodoItem(event.target.value);
   }
-   function handleAddItem(){
-    //add item
-    const newList = initialList.concat({id: uuidv4(), todoItem});
+  function handleAddItem() {
+    const newList = list.concat({id: uuidv4(), todoItem });
+    console.log("Inside the handle Add item");
     setList(newList);
+    console.log(list);
     setTodoItem("");
-   }
-  
+  }
+  function handleDeleteItem(id){
+    const newList = removeObjectWithId(id)
+    setList(newList);
+  }
+
+  function removeObjectWithId(id) {
+    return list.filter((obj) => obj.id !== id);
+  }
+
 
   return (
     <div className="todo-list-container">
@@ -49,6 +57,13 @@ function TodoList() {
                   value="1"
                 />
                 <p className="item">{item.todoItem}</p>
+                <button
+                  className="del-button"
+                  type="button"
+                  onClick={() => {handleDeleteItem(item.id)}}
+                >
+                  <FontAwesomeIcon icon={faSquareMinus} size="2x" />
+                </button>
               </div>
             ))}
           </div>
@@ -61,15 +76,13 @@ function TodoList() {
             autocomplete="off"
             onChange={handleChange}
           />
-          <button className="add-button"
-          type="button"
-          onClick={handleAddItem}>
+          <button className="add-button" type="button" onClick={handleAddItem}>
             <FontAwesomeIcon icon={faSquarePlus} size="2x" />
           </button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default TodoList;

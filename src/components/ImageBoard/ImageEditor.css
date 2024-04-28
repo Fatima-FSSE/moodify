@@ -1,0 +1,48 @@
+.image-editor {
+  padding: 0.2%;
+}
+
+.upload-button, .delete-button {
+  display: inline-block;
+  padding: 7px 10px;
+  background-color: #074173;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: .7rem;
+}
+
+.upload-button input[type="file"] {
+  display: none;
+}
+
+.delete-button input[type="button"] {
+  display: none;
+}
+
+.canvas-container {
+  width: 100%;
+  height: 480px; /* You can set a fixed height if needed */
+  position: relative;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 480px;
+  border: none;
+  overflow: auto;
+}
+
+.canvas img {
+  position: flex;
+  cursor: pointer;
+}
+
+.toolbar-div{
+  background-color: #C5FF95;
+  text-align: center;
+  align-items: center;
+}
