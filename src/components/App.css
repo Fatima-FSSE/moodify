@@ -6,3 +6,8 @@ html{
   display: flex;
   flex-direction: column;
 }
+
+footer p{
+  text-align: center;
+  margin: auto;
+}

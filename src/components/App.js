@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Footer from './Footer.jsx';
 
 import WeatherBar from './WeatherBar/WeatherBar.jsx';
 import Notes from './Notes/Notes.jsx';
@@ -11,6 +12,7 @@ function App() {
       <WeatherBar />
       <Mainboard />
       <Notes/>
+      <Footer />
     </div>
   );
 }

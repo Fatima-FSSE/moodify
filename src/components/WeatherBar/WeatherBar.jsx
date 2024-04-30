@@ -10,9 +10,10 @@ function WeatherBar() {
   const [windSpeed, setWindSpeed] = useState("");
   const [uvIndex, setUvIndex] = useState();
   const [visiblity, setVisibility] = useState();
+  const [isResponse, setIsResponse] = useState(true);
 
   const path = "images/WeatherBarAssets/";
-  const searchImg = `${path}search.png`; 
+  const searchImg = `${path}search.png`;
   const humidityImg = `${path}humidity.png`;
   const windyImg = `${path}windy.png`;
   const uvIndexImg = `${path}uv-index.png`;
@@ -26,22 +27,36 @@ function WeatherBar() {
   }, []);
 
   async function getWeatherData(input) {
-
     let weather_api_key = process.env.REACT_APP_WEATHER_API;
     let url = `https://api.weatherbit.io/v2.0/current?city=${input}&key=${weather_api_key}&include=hourly&units=I`;
-    let response = await fetch(url);
-    let weatherData = await response.json();
 
-    const wIcon = `${path}weather-icons/${weatherData.data[0].weather.icon}.png`;
-    document.getElementById("icon").src = wIcon;
+    let weatherData = fetch(url)
+      .then((response) => {
+        console.log("The response is :"+response.status);
+        if (response.status !== 200) {
+          alert("Unable to get Weather Data");
+        } else {
+          setIsResponse(true);
+          return response.json();
+        }
+      })
+      .catch((error) => {
+        setIsResponse(false);
+        alert(error.toString());
+      });
 
-    setTemprature(Math.floor(weatherData.data[0].temp));
-    setHumidity(Math.floor(weatherData.data[0].rh));
-    setWindSpeed(Math.floor(weatherData.data[0].wind_spd));
-    setFeelsLike(Math.floor(weatherData.data[0].app_temp));
-    setUvIndex(Math.floor(weatherData.data[0].uv));
-    setWeatherDesc(weatherData.data[0].weather.description);
-    setVisibility(weatherData.data[0].vis);
+    if (isResponse) {
+      const wIcon = `${path}weather-icons/${weatherData.data[0].weather.icon}.png`;
+      document.getElementById("icon").src = wIcon;
+
+      setTemprature(Math.floor(weatherData.data[0].temp));
+      setHumidity(Math.floor(weatherData.data[0].rh));
+      setWindSpeed(Math.floor(weatherData.data[0].wind_spd));
+      setFeelsLike(Math.floor(weatherData.data[0].app_temp));
+      setUvIndex(Math.floor(weatherData.data[0].uv));
+      setWeatherDesc(weatherData.data[0].weather.description);
+      setVisibility(weatherData.data[0].vis);
+    }
   }
 
   function search() {
