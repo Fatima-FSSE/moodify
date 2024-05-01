@@ -30,20 +30,24 @@ function WeatherBar() {
     let weather_api_key = process.env.REACT_APP_WEATHER_API;
     let url = `https://api.weatherbit.io/v2.0/current?city=${input}&key=${weather_api_key}&include=hourly&units=I`;
 
-    let weatherData = fetch(url)
+    
+
+    let res = await fetch(url)
       .then((response) => {
         console.log("The response is :"+response.status);
         if (response.status !== 200) {
-          alert("Unable to get Weather Data");
+          alert("Unable to get Weather Data" + response.status);
         } else {
           setIsResponse(true);
-          return response.json();
+          return response;
         }
       })
       .catch((error) => {
         setIsResponse(false);
         alert(error.toString());
       });
+
+      let weatherData= await res.json();
 
     if (isResponse) {
       const wIcon = `${path}weather-icons/${weatherData.data[0].weather.icon}.png`;
