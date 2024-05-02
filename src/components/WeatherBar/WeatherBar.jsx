@@ -23,7 +23,7 @@ function WeatherBar() {
 
   // eslint-disable-next-line
   useEffect(() => {
-    //getWeatherData(inputValue);
+    getWeatherData(inputValue);
   }, []);
 
   async function getWeatherData(input) {
@@ -66,7 +66,7 @@ function WeatherBar() {
   function search() {
     const cityName = document.getElementsByClassName("search-city");
     setInputValue(cityName[0].value);
-    //getWeatherData(cityName[0].value);
+    getWeatherData(cityName[0].value);
   }
 
   return (
