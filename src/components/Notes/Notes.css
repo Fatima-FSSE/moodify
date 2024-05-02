@@ -39,8 +39,6 @@
 
 .tabs:not(:last-child){
   border-right: 1px solid rgba(0,0,0, 0.274);
-
-
 }
 
 .active-tabs{
@@ -99,10 +97,32 @@ textarea {
   box-sizing: border-box;
   border: none;
   padding: 12px 20px;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
 }
 
 .active-content {
   display: block;
+}
+
+.container-div {
+  position: relative;
+}
+.container__textarea {
+  background: white;
+  caret-color: rgb(0 0 0);
+  color: transparent;
+  position: relative;
+}
+.container__mirror {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+.container__mirror a {
+  pointer-events: auto;
 }
