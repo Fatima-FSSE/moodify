@@ -8,12 +8,6 @@
     border-radius: 15px;
     margin: 0 10px 0 10px;
     padding: 0;
-    float: right;
-
-    position: absolute;
-    top: 0;
-    right: 0;
-
 }
 
 .header.todo-heading{
@@ -71,6 +65,10 @@ form.item {
     border-width: 0;
   }
 
+  .plus-icon{
+    transform: translateY(-4px);
+  }
+
   .add-item.input[type="text"] {
     text-align: center;
     height: 30px;
@@ -90,15 +88,16 @@ form.item {
 
 input[type="text"]{
     font-size: 1rem;
-    transform: translateY(-5px);
+    transform: translateY(-9px);
 }
 
 button.del-button{
     background: transparent;
     border: none;
     position: absolute;
-    right: 0;
+    right: 0; 
     align-self: center;
+    transform: translateX(-23px);
 }
 
 .cancel-div{
@@ -119,3 +118,48 @@ button.del-button{
   border-radius: 10px;
   border: 1px solid black;
 }
+
+@media (max-width:991px){
+    .todo-list-container {
+        width: 90%;
+        margin: auto;
+    }
+    button.del-button{
+      transform: translateX(-43px);
+    }
+
+    .add-item.input[type="text"] {
+        font-size: .7rem;
+    }
+
+    .list-items{
+       font-size: .7rem;
+    }
+    
+    input[type="text"]{
+        font-size: .7rem;
+    }
+    
+    .plus-icon{
+        width: 80%;
+    }
+
+}
+
+@media (max-width:450px){
+    .add-item.input[type="text"] {
+        font-size: .5rem;
+    }
+
+    .list-items{
+       font-size: .5rem;
+    }
+
+    input[type="text"]{
+        font-size: .5rem;
+    }
+    .plus-icon{
+        width: 70%;
+    }
+
+  }

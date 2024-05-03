@@ -72,7 +72,7 @@ function WeatherBar() {
   return (
     <div className="weather-bar-container">
       <div className="container weather-bar-div">
-        <div>
+        <div className="moodify-logo">
           <img className="logo-icon" src={"moodify.png"} alt="logo" />
         </div>
         <div className="search-bar">
@@ -91,9 +91,9 @@ function WeatherBar() {
       </div>
       <div className="weather-div">
         <div className="temprature-div">
-          <img className="weather-icon" id="icon" alt="weather forecast" />
+          <img className="weather-icon" id="icon" alt="" />
           <div className="weather-desc">
-            <div className="desc heading">{weatherDesc}</div>
+            <div className="desc heading txt">{weatherDesc}</div>
           </div>
           <div className="city-temp-div">
             <div className="city-temp heading">{temprature}&#176;F</div>
@@ -110,7 +110,7 @@ function WeatherBar() {
           />
           <div className="humidity-text">
             <div className="humidity-value heading">{humidity} %</div>
-            <div className="heading">Humidity</div>
+            <div className="heading txt">Humidity</div>
           </div>
         </div>
         <div className="forecast-div">
@@ -121,7 +121,7 @@ function WeatherBar() {
           />
           <div className="wind-text">
             <div className="windSpeed-value heading">{windSpeed} m/s</div>
-            <div className="heading">Wind speed</div>
+            <div className="heading txt">Wind speed</div>
           </div>
         </div>
         <div className="forecast-div">
@@ -132,7 +132,7 @@ function WeatherBar() {
           />
           <div className="uvIndex-text">
             <div className="uvIndex-value heading">{uvIndex}</div>
-            <div className="heading">UV INDEX</div>
+            <div className="heading txt">UV INDEX</div>
           </div>
         </div>
         <div className="forecast-div">
@@ -143,7 +143,7 @@ function WeatherBar() {
           />
           <div className="uvIndex-text">
             <div className="precipitation-value heading">0 mm/h</div>
-            <div className="heading">Precipitation</div>
+            <div className="heading txt">Precipitation</div>
           </div>
         </div>
         <div className="forecast-div">
@@ -154,7 +154,7 @@ function WeatherBar() {
           />
           <div className="visibility-text">
             <div className="visibility-value heading">{visiblity} km</div>
-            <div className="heading">Visibility</div>
+            <div className="heading txt">Visibility</div>
           </div>
         </div>
         <div className="forecast-div">
@@ -165,7 +165,7 @@ function WeatherBar() {
           />
           <div className="feelsLike-text">
             <div className="feelsLike-value heading">{feelsLike}&#176;F</div>
-            <div className="heading">Feels like</div>
+            <div className="heading txt">Feels like</div>
           </div>
         </div>
       </div>

@@ -6,11 +6,9 @@ import './Mainboard.css';
 
 function Mainboard() {
     return (
-      <div className="main-board-container">
-        <div className="container main-board-div">
+      <div className="main-board-container container">
           <ImageBoard />
           <TodoList />
-        </div>
       </div>
     );
 }

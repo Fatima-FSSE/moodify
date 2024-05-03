@@ -51,7 +51,6 @@ const ImageEditor = () => {
         id: uuidv4(),
     }
   ];
-  
   const [images, setImages] = useState(initialImageList);
 
   const handleImageUpload = (event) => {

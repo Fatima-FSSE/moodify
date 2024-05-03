@@ -99,7 +99,7 @@ function TodoList() {
             onChange={handleChange}
           />
           <button className="add-button" type="button" onClick={handleAddItem}>
-            <FontAwesomeIcon icon={faSquarePlus} size="2x" />
+            <FontAwesomeIcon className="plus-icon" icon={faSquarePlus} size="2x" />
           </button>
         </form>
       </div>

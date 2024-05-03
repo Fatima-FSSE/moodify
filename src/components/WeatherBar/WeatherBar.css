@@ -20,11 +20,16 @@
 
 }
 
+.moodify-logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .search-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 14px;
 }
 
 .search-bar input{
@@ -37,8 +42,7 @@
   width: 370px;
   height: 20px;
   outline: none;
-  padding-left: 30px;
-    
+  padding-left: 30px; 
   }
 
 .search-img {
@@ -75,7 +79,7 @@
 .temprature-div{
   align-items: center; 
   background-color: #1679AB;
-  border-radius: 13px;
+  border-radius: 8px;
   display: inline-flex;
   justify-content: center;
   padding: .4% 3% .4% 3%;
@@ -117,4 +121,54 @@
   padding: 0;
   border: 0 transparent;
   background: transparent;
+}
+
+@media (max-width:991px){
+
+  .search-bar input{
+    font-size: 9px;
+    width: 185px;
+    }
+
+  .weather-data{
+    font-size: 0.5rem;
+  }
+
+  .heading{
+    font-size: .6rem;
+    font-weight: bold;
+  }
+
+  .weather-bar-div.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .weather-div{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: auto;
+   gap: 5px;
+  }
+  .weather-icon {
+    width: 20%;
+  }
+
+  .logo-icon{
+    width: 50%;
+  }
+  .txt{
+    display: none;
+  }
+
+}
+
+@media (max-width:450px){
+   .txt{
+     display: none;
+   }
+
 }

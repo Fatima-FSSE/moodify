@@ -126,3 +126,23 @@ textarea {
 .container__mirror a {
   pointer-events: auto;
 }
+
+@media (max-width:991px){
+  textarea{
+    font-size: .7rem;
+  }
+  .tabs, .active-tabs{
+    font-size: .7rem;
+    font-weight: bold;
+  }
+}
+
+@media (max-width:450px){
+  textarea{
+    font-size: .4rem;
+  }
+  .tabs, .active-tabs{
+    font-size: .4rem;
+    font-weight: bold;
+  }
+}

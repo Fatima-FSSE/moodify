@@ -2,4 +2,16 @@
 
 .main-board-container{
     position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width:991px){
+
+    .main-board-container{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+  }
+
 }
