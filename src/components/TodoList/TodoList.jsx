@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { faSquareMinus } from "@fortawesome/free-regular-svg-icons";
@@ -6,46 +6,104 @@ import { v4 as uuidv4 } from "uuid";
 
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
+import axios from "axios";
 
 import "./TodoList.css";
 
 function TodoList() {
-  const initialList = [
-    {
-      id: uuidv4(),
-      todoItem: "buy lumber and screws",
-    },
-    {
-      id: uuidv4(),
-      todoItem: "Sand the cabinet",
-    },
-  ];
+  const initialList = {
+    _id: "01234",
+    todoItems: [
+      {
+        _id: uuidv4(),
+        todoItem: "buy lumber and screws",
+        completed: false,
+      },
+      {
+        _id: uuidv4(),
+        todoItem: "Sand the cabinet",
+        completed: false,
+      },
+    ],
+  };
 
   const [list, setList] = useState(initialList);
   const [todoItem, setTodoItem] = useState("");
   const [isDialog, setDialog] = useState(false);
+
+  useEffect(() => {
+     axios.get("http://localhost:3001/moodify/todolist")
+     .then((res) => {
+      console.log("Getting the todolist data");
+      console.log(res.data);
+      if(res.data.length === 0 ){
+        axios
+        .post("http://localhost:3001/moodify/todolist/add", initialList)
+        .then((res) => console.log(res.data[0]))
+        .catch((err) => console.log(err));
+      }
+      else{
+        setList(res.data[0]);
+        console.log("List data is "+list._id);
+        console.log("List data is "+list.todoItems);
+      }
+     }) 
+  },[]);
 
   function handleChange(event) {
     //track new item field state
     setTodoItem(event.target.value);
   }
   function handleAddItem() {
-    const newList = list.concat({ id: uuidv4(), todoItem });
-    if (newList.length >= 11) {
+    const newTodoItem = {
+      _id: uuidv4(),
+      todoItem: todoItem,
+      completed: false,
+    };
+
+    const updatedList = {
+      ...list,
+      todoItems: [...list.todoItems, newTodoItem],
+    };
+
+    if(updatedList.todoItems.length >= 11) {
       setDialog(true);
     } else {
+      console.log(updatedList);
       setDialog(false);
-      setList(newList);
+      handleUpdate(updatedList);
       setTodoItem("");
     }
   }
+
   const handleClose = () => {
     setDialog(false);
   };
 
   function handleDeleteItem(id) {
-    const newList = list.filter((obj) => obj.id !== id);
-    setList(newList);
+
+    const updatedList = {
+      ...list, todoItems: list.todoItems.filter(item => item._id !== id),
+    }
+    handleUpdate(updatedList);
+  }
+
+  function handleCheckboxChange(id) {
+    const updatedList = {
+      ...list,
+      todoItems: list.todoItems.map(item => 
+        item._id === id ? { ...item, completed: !item.completed } : item
+      ),
+    };
+    handleUpdate(updatedList);
+  }
+
+  function handleUpdate(updatedList){
+    setList(updatedList);
+    axios
+    .put("http://localhost:3001/moodify/todolist/update", updatedList)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
   }
 
   return (
@@ -68,10 +126,12 @@ function TodoList() {
                 </div>
               </Dialog>
             )}
-            {list.map((item, key) => (
+            {list.todoItems.map((item, key) => (
               <div className="items" key={key}>
                 <input
                   type="checkbox"
+                  checked={item.completed}
+                  onChange={() => handleCheckboxChange(item._id)}
                   name="todo-item"
                   id="todo-item-id"
                   value="1"
@@ -81,7 +141,7 @@ function TodoList() {
                   className="del-button"
                   type="button"
                   onClick={() => {
-                    handleDeleteItem(item.id);
+                    handleDeleteItem(item._id);
                   }}
                 >
                   <FontAwesomeIcon icon={faSquareMinus} size="2x" />
@@ -90,12 +150,12 @@ function TodoList() {
             ))}
           </div>
         </form>
-        <form class="add-item" action="" method="post">
+        <form className="add-item" action="" method="post">
           <input
             type="text"
             value={todoItem}
             placeholder="new item"
-            autocomplete="off"
+            autoComplete="off"
             onChange={handleChange}
           />
           <button className="add-button" type="button" onClick={handleAddItem}>

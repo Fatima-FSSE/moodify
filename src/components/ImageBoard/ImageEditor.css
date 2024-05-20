@@ -19,7 +19,7 @@
 .canvas-container {
   width: 100%;
   position: relative;
-  height: 51vh;
+  height: 50vh;
   overflow: auto;
 }
 

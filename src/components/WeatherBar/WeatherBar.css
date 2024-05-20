@@ -123,6 +123,10 @@
   background: transparent;
 }
 
+.search-input{
+  max-width: 1000px;
+}
+
 @media (max-width:991px){
 
   .search-bar input{

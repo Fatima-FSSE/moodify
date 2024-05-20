@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./WeatherBar.css";
+import Search from "./Search";
 
 function WeatherBar() {
-  const [inputValue, setInputValue] = useState("Sugar Land");
+  const [cityName, setCityName] = useState("Sugar Land");
   const [temprature, setTemprature] = useState("");
   const [weatherDesc, setWeatherDesc] = useState("");
   const [feelsLike, setFeelsLike] = useState("");
@@ -13,7 +14,6 @@ function WeatherBar() {
   const [isResponse, setIsResponse] = useState(true);
 
   const path = "images/WeatherBarAssets/";
-  const searchImg = `${path}search.png`;
   const humidityImg = `${path}humidity.png`;
   const windyImg = `${path}windy.png`;
   const uvIndexImg = `${path}uv-index.png`;
@@ -21,20 +21,21 @@ function WeatherBar() {
   const visibilityImg = `${path}visibility.png`;
   const tempratureImg = `${path}temprature.png`;
 
-  // eslint-disable-next-line
+  let latitude = 29.619678;
+  let longitude = -95.634949;
+
   useEffect(() => {
-    getWeatherData(inputValue);
+    //eslint-disable-next-line
+    getWeatherData(latitude, longitude);
   }, []);
 
-  async function getWeatherData(input) {
+  async function getWeatherData(latitude, longitude) {
     let weather_api_key = process.env.REACT_APP_WEATHER_API;
-    let url = `https://api.weatherbit.io/v2.0/current?city=${input}&key=${weather_api_key}&include=hourly&units=I`;
-
-    
+    let url = `https://api.weatherbit.io/v2.0/current?lat=${latitude}&lon=${longitude}&key=${weather_api_key}&include=hourly&units=I`;
 
     let res = await fetch(url)
       .then((response) => {
-        console.log("The response is :"+response.status);
+        console.log("The response is :" + response.status);
         if (response.status !== 200) {
           alert("Unable to get Weather Data" + response.status);
         } else {
@@ -47,11 +48,13 @@ function WeatherBar() {
         alert(error.toString());
       });
 
-      let weatherData= await res.json();
+    let weatherData = await res.json();
 
     if (isResponse) {
       const wIcon = `${path}weather-icons/${weatherData.data[0].weather.icon}.png`;
       document.getElementById("icon").src = wIcon;
+
+      setCityName(weatherData.data[0].city_name);
 
       setTemprature(Math.floor(weatherData.data[0].temp));
       setHumidity(Math.floor(weatherData.data[0].rh));
@@ -63,11 +66,13 @@ function WeatherBar() {
     }
   }
 
-  function search() {
-    const cityName = document.getElementsByClassName("search-city");
-    setInputValue(cityName[0].value);
-    getWeatherData(cityName[0].value);
-  }
+  const handleOnSearchCityChange = (searchCity) => {
+    console.log(searchCity.value);
+    const lat_log = searchCity.value.split(" ");
+    console.log(lat_log[0]);
+    console.log(lat_log[1]);
+    getWeatherData(lat_log[0], lat_log[1]);
+  };
 
   return (
     <div className="weather-bar-container">
@@ -75,19 +80,7 @@ function WeatherBar() {
         <div className="moodify-logo">
           <img className="logo-icon" src={"moodify.png"} alt="logo" />
         </div>
-        <div className="search-bar">
-          <input
-            type="text"
-            className="search-city"
-            placeholder="search city"
-          />
-          <img
-            className="search-img"
-            src={searchImg}
-            alt="seach Icon"
-            onClick={search}
-          />
-        </div>
+        <Search onSearchCityChange={handleOnSearchCityChange} />
       </div>
       <div className="weather-div">
         <div className="temprature-div">
@@ -97,9 +90,7 @@ function WeatherBar() {
           </div>
           <div className="city-temp-div">
             <div className="city-temp heading">{temprature}&#176;F</div>
-            <div className="city-name heading">
-              {inputValue[0].toUpperCase() + inputValue.slice(1).toLowerCase()}
-            </div>
+            <div className="city-name heading">{cityName}</div>
           </div>
         </div>
         <div className="forecast-div">

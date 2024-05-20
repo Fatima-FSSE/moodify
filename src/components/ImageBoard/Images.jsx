@@ -1,12 +1,15 @@
 import Draggable from "react-draggable";
 import { Resizable } from "re-resizable";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const Images = ({ image, onDelete, id }) => {
+
   const [isHovered, setHover] = useState(false);
   const [border, setBorder] = useState("none");
+  const [width, setWidth] = useState(image.width);
+  const [height, setHeight] = useState(image.height);
 
   const styles = {
     background: `url(${image.url})`,
@@ -42,6 +45,11 @@ const Images = ({ image, onDelete, id }) => {
         className="imageContainer"
         onMouseOver={setImageStyleOnMouseOver}
         onMouseLeave={setImageStyleOnMouseLeave}
+        size={{ width, height }}
+        onResizeStop={(e, direction, ref, d) => {
+          setWidth(width + d.width);
+          setHeight(height + d.height);
+        }}
       >
         {isHovered && (
           <button className="del-button" onClick={handleClick}>
