@@ -78,6 +78,15 @@ const ImageEditor = () => {
     console.log(id);
     const newImageList = images.imagelist.filter((obj) => obj._id !== id);
     setImages((prevState) => ({ ...prevState, imagelist: newImageList }));
+    
+    const updatedImageList = {
+      _id: "01234",
+      imagelist: newImageList
+    };
+    
+    axios.post("http://localhost:3001/moodify/images/delete-image", updatedImageList)
+    .then((res) => console.log("Update after delete :"+res.data[0]))
+    .catch((err) => console.log(err) );
   }
 
 
@@ -113,7 +122,7 @@ const ImageEditor = () => {
     const formData = new FormData();
     formData.append("image", image);
     axios
-      .post("http://localhost:3001/moodify/upload-image", formData, {
+      .post("http://localhost:3001/moodify/images/upload-image", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {

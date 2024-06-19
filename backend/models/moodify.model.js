@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 
 const weatherSchema = new mongoose.Schema({
-    _id: String,  
-  cityName: String,
+  _id: String,
+  latitude: String,
+  longitude: String,
 });
 
 const noteSchema = new mongoose.Schema({
   _id: String,
-  notes: [
+  note: [
     {
-      type: String,
-      content: String,
+      note_type: String,
+      note_content: String,
     }
   ]
 });

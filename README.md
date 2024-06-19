@@ -16,16 +16,16 @@ Keep track of your tasks and stay organized with Moodify's intuitive todo list. 
 ### Three Tabs Section
 Efficiently manage your notes, shopping lists, and product links with Moodify's three tabs section. Easily switch between tabs to access and update your information, keeping everything you need in one convenient location.
 
+### Data Persistence with MongoDB
+All your data, including mood board images, todo lists, and notes, are securely saved via MongoDB. This ensures that your information is persistent and accessible across sessions and devices.
+
 ## Upcoming Features
-
-### Mobile Friendly
-Enjoy Moodify on the go with our upcoming mobile-friendly version. Access all the features seamlessly from your smartphone or tablet, ensuring you stay productive and inspired wherever you are.
-
-### Backend Integration for Mood Board
-Save and retrieve your mood board creations with ease using Moodify's upcoming backend integration. Enjoy the convenience of accessing your personalized mood boards across devices and sessions.
 
 ### User Profiles and Login Page
 Create personalized user profiles and access Moodify's features with ease using our upcoming login page. Enjoy a customized experience tailored to your preferences and needs.
+
+### User Profiles
+Manage your personal data and customize your experience with user profiles. Store your preferences, track your progress, and access personalized content effortlessly.
 
 Stay tuned for these exciting updates as we continue to enhance your Moodify experience!
 
@@ -73,6 +73,5 @@ The project structure is organized as follows:
 In the project directory, you can run the following scripts:
 
 - **`npm start`**: Runs the app in development mode.
-- **`npm test`**: Launches the test runner in interactive watch mode.
 - **`npm run build`**: Builds the app for production to the `build` folder.
 - **`npm run eject`**: Removes the single build dependency from your project.

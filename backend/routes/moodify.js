@@ -26,7 +26,7 @@ todoListAdd
 router.route("/todolist/update").put((req, res) => {
    TodoList.findOneAndUpdate({_id:"01234"}, req.body, { new: true, upsert: true, setDefaultsOnInsert: true })
    .then((updatedTodoList) => res.json(updatedTodoList))
-   .catch((err) => res.status(500));
+   .catch((err) => res.status(err + 500));
 });
 
 //------------------------------ Image Editor ---------------------------------------------------------------
@@ -40,7 +40,7 @@ router.route("/images").get((req, res) => {
 router.route("/images/add").post((req, res) => {
 
    const imagesToAdd = new Image({
-     _id : req.body._id,
+     _id: req.body._id,
      imagelist: req.body.imagelist,
   });
   imagesToAdd
@@ -49,7 +49,7 @@ router.route("/images/add").post((req, res) => {
   .catch((err) => res.status(400).json("Error "+ err));
   });
 
-//-------------------------------Image Upload---------------------------------------------------------------
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^Image Upload^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 const multer  = require('multer');
 
@@ -65,14 +65,14 @@ const storage = multer.diskStorage({
  });
  
  const upload = multer({ storage: storage })
- const userId = uuidv4()
+ const imageId = uuidv4()
 
 
-router.route("/upload-image").post(upload.single("image"), async (req, res) =>{
+router.route("/images/upload-image").post(upload.single("image"), async (req, res) =>{
 
    const fileName = req.file.filename;
    const newImage = {
-      _id: userId,
+      _id: imageId,
       url: "images/image-board/"+fileName,
      width: 200, // default width
      height: 200, // default height
@@ -87,11 +87,69 @@ router.route("/upload-image").post(upload.single("image"), async (req, res) =>{
         { $push: { imagelist: newImage } } // Update operation
       );
   
-      res.status(200).send('Image uploaded and document updated successfully.');
+      res.status(200).send('Images updated successfully.');
     } catch (err) {
       res.status(500).send('Error updating the document: ' + err.message);
     }
    
+});
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Delete Image^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+router.route("/images/delete-image").post((req, res) => {
+  Image.findOneAndUpdate({_id:"01234"}, req.body, { new: true, upsert: true, setDefaultsOnInsert: true })
+.then((updatedImageList) => res.json(updatedImageList))
+.catch((err) => res.status(err + 500));
+
+});
+
+//--------------------------------Weather data---------------------------------------------------------------------------------------------
+
+router.route("/weather").get((req, res) => {
+  Weather.find()
+  .then((weather) => res.json(weather))
+  .catch((err) => res.status(400).json("Error" + err));
+});
+
+router.route("/weather/add").post((req, res) => {
+  const weatherToAdd = new Weather(req.body);
+  weatherToAdd
+  .save()
+  .then(() => res.json("Weather Information added!"))
+  .catch((err) => console.log("Error saving weather data: "+err));
+});
+
+router.route("/weather/update").put((req, res) => {
+  Weather.findOneAndUpdate({_id:"01234"}, req.body, { new: true, upsert: true, setDefaultsOnInsert: true })
+  .then((updatedWeather) => res.json(updatedWeather))
+  .catch((err) => res.status(err + 500));
+});
+
+
+//-------------------------------------------- Tabs data -----------------------------------------------------------------------
+
+router.route("/notes").get((req, res) => {
+  Note.find()
+  .then((notes) => res.json(notes))
+  .catch((err) => res.status(400).json("Error" + err));
+});
+
+router.route("/notes/add").post((req, res) => {
+  
+  const notesToAdd = new Note({
+    _id: req.body._id,
+    note: req.body.note,
+  });
+  notesToAdd
+  .save()
+  .then(() => res.json("Tabs Information added!"))
+  .catch((err) => console.log("Error saving Tabs data: "+err));
+});
+
+router.route("/notes/update").put((req, res) => {
+  Note.findOneAndUpdate({_id:"01234"}, req.body, { new: true, upsert: true, setDefaultsOnInsert: true })
+  .then((updatedNotes) => res.json(updatedNotes))
+  .catch((err) => res.status(err + 500));
 });
 
 module.exports = router;

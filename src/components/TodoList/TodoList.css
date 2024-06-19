@@ -1,106 +1,103 @@
-
 .todo-list-container {
-    width: 28%;
-    color: purple;
-    height: 55vh;
-    background-color: #C5FF95;
-    border: 7px solid #1679AB;
-    border-radius: 15px;
-    margin: 0 10px 0 10px;
-    padding: 0;
+  width: 28%;
+  color: purple;
+  height: 55vh;
+  background-color: #c5ff95;
+  border: 7px solid #1679ab;
+  border-radius: 15px;
+  margin: 0 10px 0 10px;
+  padding: 0;
 }
 
-.header.todo-heading{
-    color: #074173;
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-    background-color: white;
-    border: 2px solid #074173;
-    margin: 5px;
-    padding: 7px;
+.header.todo-heading {
+  color: #074173;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  background-color: white;
+  border: 2px solid #074173;
+  margin: 5px;
+  padding: 7px;
 }
 
-.list-items{
-    color: black;
-    background-color: white;
-    width: 90%;
-    margin: 0 0 0 10px;
-    font-size: .7rem;
-    font-weight: bold;
-    padding: 0;
-
+.list-items {
+  color: black;
+  background-color: white;
+  width: 90%;
+  margin: 0 0 0 10px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0;
 }
 
-input[type=checkbox]:checked + p{
-    text-decoration: line-through;
+input[type="checkbox"]:checked + p {
+  text-decoration: line-through;
 }
 
-input[type=checkbox]{
-    margin: 5px 10px 5px 5px;
+input[type="checkbox"] {
+  margin: 5px 10px 5px 5px;
 }
 
 .items {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid black;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid black;
 }
-
 
 form.item {
-    text-align: center;
-    margin-left: 20px;
-  }
-
-  button.add-Button {
-    height: 50px;
-    width: 25px;
-    border-radius: 50%;
-    border-color: transparent;
-    background-color: #1679AB;
-    color: #fff;
-    font-size: 30px;
-    padding-bottom: 6px;
-    border-width: 0;
-  }
-
-  .plus-icon{
-    transform: translateY(-4px);
-  }
-
-  .add-item.input[type="text"] {
-    text-align: center;
-    height: 30px;
-    top: 10px;
-    border: none;
-    background: transparent;
-    font-size: 1.2rem;
-    font-weight: 200;
-    width: 313px;
-  }
-
-.add-item{
-    position: absolute;
-    bottom: 0;
-    align-self: center;
-}  
-
-input[type="text"]{
-    font-size: 1rem;
-    transform: translateY(-9px);
+  text-align: center;
+  margin-left: 20px;
 }
 
-button.del-button{
-    background: transparent;
-    border: none;
-    position: absolute;
-    right: 0; 
-    align-self: center;
-    transform: translateX(-23px);
+button.add-Button {
+  height: 50px;
+  width: 25px;
+  border-radius: 50%;
+  border-color: transparent;
+  background-color: #1679ab;
+  color: #fff;
+  font-size: 30px;
+  padding-bottom: 6px;
+  border-width: 0;
 }
 
-.cancel-div{
+.plus-icon {
+  transform: translateY(-4px);
+}
+
+.add-item.input[type="text"] {
+  text-align: center;
+  height: 30px;
+  top: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  font-weight: 200;
+  width: 313px;
+}
+
+.add-item {
+  position: absolute;
+  bottom: 0;
+  align-self: center;
+}
+
+input[type="text"] {
+  font-size: 1rem;
+  transform: translateY(-9px);
+}
+
+button.del-button {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 0;
+  align-self: center;
+  transform: translateX(-23px);
+}
+
+.cancel-div {
   display: flex;
   felxdirection: row;
   position: absolute;
@@ -108,10 +105,10 @@ button.del-button{
   bottom: 0px;
 }
 
-.btn-cancel{
+.btn-cancel {
   width: 5rem;
   height: 1.5rem;
-  font-size: .8rem;
+  font-size: 0.8rem;
   background-color: grey;
   color: black;
   margin: 5px;
@@ -119,47 +116,45 @@ button.del-button{
   border: 1px solid black;
 }
 
-@media (max-width:991px){
-    .todo-list-container {
-        width: 90%;
-        margin: auto;
-    }
-    button.del-button{
-      transform: translateX(-43px);
-    }
+@media (max-width: 991px) {
+  .todo-list-container {
+    width: 90%;
+    margin: auto;
+  }
+  button.del-button {
+    transform: translateX(-43px);
+  }
 
-    .add-item.input[type="text"] {
-        font-size: .7rem;
-    }
+  .add-item.input[type="text"] {
+    font-size: 0.7rem;
+  }
 
-    .list-items{
-       font-size: .7rem;
-    }
-    
-    input[type="text"]{
-        font-size: .7rem;
-    }
-    
-    .plus-icon{
-        width: 80%;
-    }
+  .list-items {
+    font-size: 0.7rem;
+  }
 
+  input[type="text"] {
+    font-size: 0.7rem;
+  }
+
+  .plus-icon {
+    width: 80%;
+  }
 }
 
-@media (max-width:450px){
-    .add-item.input[type="text"] {
-        font-size: .5rem;
-    }
-
-    .list-items{
-       font-size: .5rem;
-    }
-
-    input[type="text"]{
-        font-size: .5rem;
-    }
-    .plus-icon{
-        width: 70%;
-    }
-
+@media (max-width: 450px) {
+  .add-item.input[type="text"] {
+    font-size: 0.5rem;
   }
+
+  .list-items {
+    font-size: 0.5rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.5rem;
+  }
+  .plus-icon {
+    width: 70%;
+  }
+}

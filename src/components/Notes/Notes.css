@@ -37,6 +37,12 @@
   outline: none;
 }
 
+.bloc-tabs > .save-button{
+  visibility: visible;
+}
+
+
+
 .tabs:not(:last-child){
   border-right: 1px solid rgba(0,0,0, 0.274);
 }
@@ -48,6 +54,9 @@
   font-weight: bold;
 }
 
+.active-tabs> .save-button{
+  visibility: visible;
+}
 .active-tabs::after{
   border-top: 5px solid #1679AB;
   content: '';
@@ -126,6 +135,13 @@ textarea {
 .container__mirror a {
   pointer-events: auto;
 }
+
+.save-button{
+  background: transparent;
+  border: none;
+  visibility: hidden;  
+}
+
 
 @media (max-width:991px){
   textarea{

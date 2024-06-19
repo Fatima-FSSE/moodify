@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./WeatherBar.css";
 import Search from "./Search";
+import axios from "axios";
 
 function WeatherBar() {
   const [cityName, setCityName] = useState("Sugar Land");
@@ -21,12 +22,31 @@ function WeatherBar() {
   const visibilityImg = `${path}visibility.png`;
   const tempratureImg = `${path}temprature.png`;
 
-  let latitude = 29.619678;
-  let longitude = -95.634949;
+  let latitude = 29.619678; //Sugar Land Latitude
+  let longitude = -95.634949; // Sugar Land Longitude
+  const initialWeather = {
+    _id: "01234",
+    latitude: latitude,
+    longitude: longitude,
+  };
 
   useEffect(() => {
-    //eslint-disable-next-line
-    getWeatherData(latitude, longitude);
+    axios.get("http://localhost:3001/moodify/weather")
+     .then((res) => {
+      console.log("Getting the weather data");
+      console.log(res.data);
+      if(res.data.length === 0 ){
+        axios
+        .post("http://localhost:3001/moodify/weather/add", initialWeather)
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
+        getWeatherData(initialWeather.latitude, initialWeather.longitude);
+      }
+      else{
+        //eslint-disable-next-line
+        getWeatherData(res.data[0].latitude, res.data[0].longitude);
+      }
+     }) 
   }, []);
 
   async function getWeatherData(latitude, longitude) {
@@ -67,11 +87,12 @@ function WeatherBar() {
   }
 
   const handleOnSearchCityChange = (searchCity) => {
-    console.log(searchCity.value);
     const lat_log = searchCity.value.split(" ");
-    console.log(lat_log[0]);
-    console.log(lat_log[1]);
     getWeatherData(lat_log[0], lat_log[1]);
+    axios
+    .put("http://localhost:3001/moodify/weather/update", {_id:"01234", latitude: lat_log[0], longitude: lat_log[1],})
+    .then((res) => console.log("updated weather"+res.data))
+    .catch((err) => console.log(err));
   };
 
   return (

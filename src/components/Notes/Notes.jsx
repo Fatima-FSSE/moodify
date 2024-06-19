@@ -1,23 +1,45 @@
 import React, { useState, useEffect } from "react";
 import linkifyStr from "linkify-string";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import "./Notes.css";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import axios from "axios";
 
 function Notes() {
 
   const [toggleState, setToggleState] = useState(1);
+  const [isDialog, setDialog] = useState(false);
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
   useEffect(() => {
+   
+    axios.get("http://localhost:3001/moodify/notes")
+     .then((res) => {
+      console.log("Getting the Notes data");
+      console.log(res.data);
+      if(res.data.length !== 0){
+        const notesEle = document.getElementById("notesTab");
+        const shoppingListEle = document.getElementById("shoppingListTab");
+        const productLinkEle = document.getElementById("textarea");
+
+        notesEle.value = res.data[0].note[0].note_content
+        shoppingListEle.value = res.data[0].note[1].note_content
+        productLinkEle.value = res.data[0].note[2].note_content
+        handleChange();
+      }
+     }); 
+
     const txtarea = document.getElementById("textarea");
     txtarea.addEventListener("input", handleChange);
+ 
   }, []);
 
   const handleChange = (event) => {
-    console.log("Clicked!");
-
     const containerEle = document.getElementById("container");
     const textarea = document.getElementById("textarea");
 
@@ -74,6 +96,41 @@ function Notes() {
     findLinks();
   };
 
+  const saveTab = () => {
+    const notesVal = document.getElementById("notesTab").value;
+    const shoppingListVal = document.getElementById("shoppingListTab").value;
+    const productLinksTabVal = document.getElementById("textarea").value;
+
+    const updatedValue = {
+      _id:"01234",
+      note: [
+        {
+          note_type: "Note",
+          note_content: notesVal,
+        },
+        {
+          note_type: "Shopping Links",
+          note_content: shoppingListVal,
+        },
+        {
+          note_type: "Product Links",
+          note_content: productLinksTabVal,
+        },
+      ]
+    };
+    axios
+      .put("http://localhost:3001/moodify/notes/update", updatedValue)
+      .then((res) => {
+        console.log(res.data);
+        setDialog(true);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleClose = () => {
+    setDialog(false);
+  };
+
   return (
     <div className="notes-container">
       <div className="container notes-div">
@@ -95,7 +152,29 @@ function Notes() {
             onClick={() => toggleTab(3)}
           >
             Products Links
-          </div>
+          </div>{" "}
+          &nbsp;&nbsp;&nbsp;
+          <button
+            className="save-button"
+            onClick={() => saveTab()}
+          >
+            Save Tabs Data&nbsp;&nbsp;&nbsp;
+            <FontAwesomeIcon icon={faFloppyDisk} size="xl" />
+          </button>
+          {isDialog && (
+              <Dialog onClose={handleClose} open={isDialog}>
+                <DialogTitle> Save Message </DialogTitle>
+                <h3 style={{ marginTop: "-10px", padding: "5px 10px" }}>
+                  Data saved successfully
+                </h3>
+                <br></br>
+                <div className="cancel-div">
+                  <button className="btn-cancel" onClick={handleClose}>
+                    Close
+                  </button>
+                </div>
+              </Dialog>
+            )}
         </div>
 
         <div className="content-tabs ">
@@ -103,16 +182,18 @@ function Notes() {
             className={toggleState === 1 ? "content active-content" : "content"}
           >
             <textarea
-              className="content-text-area"
+              className="content-text-area notes"
               placeholder="Add your Notes"
+              id="notesTab"
             />
           </div>
           <div
             className={toggleState === 2 ? "content active-content" : "content"}
           >
             <textarea
-              className="content-text-area"
+              className="content-text-area shopping-list"
               placeholder="Add your Shopping List"
+              id="shoppingListTab"
             />
           </div>
           <div
@@ -124,7 +205,7 @@ function Notes() {
             id="container"
           >
             <textarea
-              className="content-text-area container__textarea"
+              className="content-text-area container__textarea products-links"
               id="textarea"
               placeholder="Add you Products Links"
             />
