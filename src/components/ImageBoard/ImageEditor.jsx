@@ -78,42 +78,50 @@ const ImageEditor = () => {
     console.log(id);
     const newImageList = images.imagelist.filter((obj) => obj._id !== id);
     setImages((prevState) => ({ ...prevState, imagelist: newImageList }));
-    
+
     const updatedImageList = {
       _id: "01234",
-      imagelist: newImageList
+      imagelist: newImageList,
     };
-    
-    axios.post("http://localhost:3001/moodify/images/delete-image", updatedImageList)
-    .then((res) => console.log("Update after delete :"+res.data[0]))
-    .catch((err) => console.log(err) );
+
+    axios
+      .post(
+        "http://localhost:3001/moodify/images/delete-image",
+        updatedImageList
+      )
+      .then((res) => console.log("Update after delete :" + res.data[0]))
+      .catch((err) => console.log(err));
   }
 
-
   const onInputChange = (e) => {
-    
-    const file = e.target.files[0];
-    const reader = new FileReader();
+    try {
+      const file = e.target.files[0];
+      const reader = new FileReader();
 
-    reader.onload = (e) => {
-      const newImage = {
-        _id: uuidv4(),
-        url: e.target.result,
-        width: 200, // default width
-        height: 200, // default height
-        x: 0,
-        y: 0,
+      reader.onload = (e) => {
+        const newImage = {
+          _id: uuidv4(),
+          url: e.target.result,
+          width: 200, // default width
+          height: 200, // default height
+          x: 0,
+          y: 0,
+        };
+        const newImageList = [...images.imagelist, newImage];
+        setImages((prevState) => ({ ...prevState, imagelist: newImageList }));
       };
-      const newImageList = [...images.imagelist, newImage];
-      setImages((prevState) => ({ ...prevState, imagelist: newImageList }));
+      reader.readAsDataURL(file);
+
+      setImage(file);
+    } catch (e) {
+      console.log(e);
     };
-    reader.readAsDataURL(file);
-    
-    setImage(file);
-    
+
     // Automatically submit the form after file is selected
     setTimeout(() => {
-      formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      formRef.current.dispatchEvent(
+        new Event("submit", { cancelable: true, bubbles: true })
+      );
     }, 500); // Small delay to ensure state updates before submitting
   };
 
