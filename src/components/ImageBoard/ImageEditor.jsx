@@ -8,9 +8,10 @@ import axios from "axios";
 
 const ImageEditor = () => {
   const imagePath = "images/image-board/";
+  const userId = "01234";
 
   const initialImageList = {
-    _id: "01234",
+    _id: userId,
     imagelist: [
       {
         _id: uuidv4(),
@@ -139,6 +140,23 @@ const ImageEditor = () => {
       .catch((err) => console.log(err));
   };
 
+  async function updateImagePosition(id, x, y) {
+    console.log("The values of x and y in UpdateImagePosistion are:"+id+" "+x+" "+y);
+    try {
+      const response = await axios.patch(
+        `http://localhost:3001/moodify/update-image-position/${userId}/${id}`,
+        {
+            newX: x,
+            newY: y
+        });
+
+      console.log('Update successful:', response.data);
+    } catch (error) {
+      console.error('Error updating document:', error);
+    }
+    
+  };
+
   return (
     <div className="image-editor">
       <div className="toolbar-div">
@@ -163,6 +181,7 @@ const ImageEditor = () => {
               image={image}
               onDelete={deleteImage}
               id={image._id}
+              onDragStop={updateImagePosition}
               key={image._id}
             />
           ))}

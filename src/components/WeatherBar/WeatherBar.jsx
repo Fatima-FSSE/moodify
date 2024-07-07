@@ -31,58 +31,60 @@ function WeatherBar() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:3001/moodify/weather")
-     .then((res) => {
+    axios.get("http://localhost:3001/moodify/weather").then((res) => {
       console.log("Getting the weather data");
       console.log(res.data);
-      if(res.data.length === 0 ){
+      if (res.data.length === 0) {
         axios
-        .post("http://localhost:3001/moodify/weather/add", initialWeather)
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
+          .post("http://localhost:3001/moodify/weather/add", initialWeather)
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
         getWeatherData(initialWeather.latitude, initialWeather.longitude);
-      }
-      else{
+      } else {
         //eslint-disable-next-line
         getWeatherData(res.data[0].latitude, res.data[0].longitude);
       }
-     }) 
+    });
   }, []);
 
   async function getWeatherData(latitude, longitude) {
-    let weather_api_key = process.env.REACT_APP_WEATHER_API;
-    let url = `https://api.weatherbit.io/v2.0/current?lat=${latitude}&lon=${longitude}&key=${weather_api_key}&include=hourly&units=I`;
+    try {
+      let weather_api_key = process.env.REACT_APP_WEATHER_API;
+      let url = `https://api.weatherbit.io/v2.0/current?lat=${latitude}&lon=${longitude}&key=${weather_api_key}&include=hourly&units=I`;
 
-    let res = await fetch(url)
-      .then((response) => {
-        console.log("The response is :" + response.status);
-        if (response.status !== 200) {
-          alert("Unable to get Weather Data" + response.status);
-        } else {
-          setIsResponse(true);
-          return response;
-        }
-      })
-      .catch((error) => {
-        setIsResponse(false);
-        alert(error.toString());
-      });
+      let res = await fetch(url)
+        .then((response) => {
+          console.log("The response is :" + response.status);
+          if (response.status !== 200) {
+            alert("Unable to get Weather Data" + response.status);
+          } else {
+            setIsResponse(true);
+            return response;
+          }
+        })
+        .catch((error) => {
+          setIsResponse(false);
+          alert(error.toString());
+        });
 
-    let weatherData = await res.json();
+      let weatherData = await res.json();
 
-    if (isResponse) {
-      const wIcon = `${path}weather-icons/${weatherData.data[0].weather.icon}.png`;
-      document.getElementById("icon").src = wIcon;
+      if (isResponse) {
+        const wIcon = `${path}weather-icons/${weatherData.data[0].weather.icon}.png`;
+        document.getElementById("icon").src = wIcon;
 
-      setCityName(weatherData.data[0].city_name);
+        setCityName(weatherData.data[0].city_name);
 
-      setTemprature(Math.floor(weatherData.data[0].temp));
-      setHumidity(Math.floor(weatherData.data[0].rh));
-      setWindSpeed(Math.floor(weatherData.data[0].wind_spd));
-      setFeelsLike(Math.floor(weatherData.data[0].app_temp));
-      setUvIndex(Math.floor(weatherData.data[0].uv));
-      setWeatherDesc(weatherData.data[0].weather.description);
-      setVisibility(weatherData.data[0].vis);
+        setTemprature(Math.floor(weatherData.data[0].temp));
+        setHumidity(Math.floor(weatherData.data[0].rh));
+        setWindSpeed(Math.floor(weatherData.data[0].wind_spd));
+        setFeelsLike(Math.floor(weatherData.data[0].app_temp));
+        setUvIndex(Math.floor(weatherData.data[0].uv));
+        setWeatherDesc(weatherData.data[0].weather.description);
+        setVisibility(weatherData.data[0].vis);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -90,9 +92,13 @@ function WeatherBar() {
     const lat_log = searchCity.value.split(" ");
     getWeatherData(lat_log[0], lat_log[1]);
     axios
-    .put("http://localhost:3001/moodify/weather/update", {_id:"01234", latitude: lat_log[0], longitude: lat_log[1],})
-    .then((res) => console.log("updated weather"+res.data))
-    .catch((err) => console.log(err));
+      .put("http://localhost:3001/moodify/weather/update", {
+        _id: "01234",
+        latitude: lat_log[0],
+        longitude: lat_log[1],
+      })
+      .then((res) => console.log("updated weather" + res.data))
+      .catch((err) => console.log(err));
   };
 
   return (

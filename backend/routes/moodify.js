@@ -49,6 +49,33 @@ router.route("/images/add").post((req, res) => {
   .catch((err) => res.status(400).json("Error "+ err));
   });
 
+
+  // Endpoint to update x and y values of an image in imagelist
+router.patch('/update-image-position/:userId/:imageId', async (req, res) => {
+  const { userId, imageId } = req.params;
+  const { newX, newY } = req.body;
+  try {
+    const result = await Image.updateOne(
+      { _id: userId, 'imagelist._id': imageId },
+      {
+        $set: {
+          'imagelist.$.x': newX,
+          'imagelist.$.y': newY
+        }
+      }
+    );
+
+    if (result.nModified === 0) {
+      return res.status(404).send('Document or Image not found');
+    }
+
+    res.send('Update successful');
+  } catch (error) {
+    res.status(500).send('Error updating document: ' + error.message);
+  }
+});
+
+
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^Image Upload^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 const multer  = require('multer');

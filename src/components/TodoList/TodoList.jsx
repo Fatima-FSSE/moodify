@@ -44,8 +44,6 @@ function TodoList() {
       }
       else{
         setList(res.data[0]);
-        console.log("List data is "+list._id);
-        console.log("List data is "+list.todoItems);
       }
      }) 
   },[]);

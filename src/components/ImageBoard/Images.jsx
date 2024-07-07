@@ -1,10 +1,10 @@
 import Draggable from "react-draggable";
 import { Resizable } from "re-resizable";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const Images = ({ image, onDelete, id }) => {
+const Images = ({ image, onDelete, id, onDragStop}) => {
 
   const [isHovered, setHover] = useState(false);
   const [border, setBorder] = useState("none");
@@ -33,8 +33,17 @@ const Images = ({ image, onDelete, id }) => {
     setBorder("none");
   }
 
+  const handleStop = (x,y) => {
+    console.log("onDragStop");
+
+    console.log("position.x", x);
+    console.log("position.y", y);
+    onDragStop(id,x,y);
+  };
+
   return (
-    <Draggable defaultPosition={{ x: image.x, y: image.y }}>
+    <Draggable defaultPosition={{ x: image.x, y: image.y }} 
+    onStop={(e,data) =>{handleStop(data.x, data.y)}}>
       <Resizable
         defaultSize={{
           width: image.width,
