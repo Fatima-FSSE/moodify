@@ -41,6 +41,7 @@ function Search({onSearchCityChange}) {
           onChange={handleOnChange}
           loadOptions={loadOptions}
           className="search-input"
+          id="search-city-input"
         />
       </div>
     );

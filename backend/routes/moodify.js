@@ -130,6 +130,9 @@ router.route("/images/delete-image").post((req, res) => {
 
 });
 
+//******************************delete the image from the local directy ***************************/
+//Still need to add functionality
+
 //--------------------------------Weather data---------------------------------------------------------------------------------------------
 
 router.route("/weather").get((req, res) => {
